@@ -1,5 +1,8 @@
 import java.awt.Color;
+import java.awt.Insets;
 import java.awt.event.*;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.*;
 
@@ -7,44 +10,49 @@ public class Frame extends JFrame implements KeyListener{
 
     private int WIDTH = 1024;
     private int HEIGHT = 512;
-    private Player player1;
+    private Player player;
+    private Set<Integer> keys = new HashSet<>();
 
     Frame(){
         setTitle("ray casting");                        // Title of the window
-        setSize(WIDTH, HEIGHT);                         // Frame dimensions 
+
+        pack();
+        Insets insets = getInsets();
+        setSize(WIDTH + insets.left + insets.right, 
+               HEIGHT + insets.top + insets.bottom);
+
+        
         getContentPane().setBackground(Color.GRAY);     // Background color of the window    
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Exit app on close
         setLocationRelativeTo(null);                    // Centere frame
         setLayout(null);                                // Allows manual positioning
 
-        player1 = new Player();                         // Initialise character  
-        add(player1);
+        player = new Player();                         // Initialise character  
+        player.setBounds(0, 0, 8 * 64, 8 * 64);
+        add(player);
+
+        Map map = new Map();
+        map.setBounds(0, 0, 8 * 64, 8 * 64);
+        add(map);
 
         addKeyListener(this);                           // Add keylistener to the frame
         setFocusable(true);                             // Makes frame interactable
 
         setVisible(true);                               // Status visible
+
+        new Timer(16, e -> updateMovement()).start();
     }   
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-        int step = 5;
+    private void updateMovement() {
+        if (keys.contains(KeyEvent.VK_W)) player.moveForward();
+        if (keys.contains(KeyEvent.VK_S)) player.moveBackward();
+        if (keys.contains(KeyEvent.VK_A)) player.turnLeft();
+        if (keys.contains(KeyEvent.VK_D)) player.turnRight();
 
-        if (key == KeyEvent.VK_A) {
-            player1.px -= step;
-        } else if (key == KeyEvent.VK_D) {
-            player1.px += step;
-        } else if (key == KeyEvent.VK_W) {
-            player1.py -= step;
-        } else if (key == KeyEvent.VK_S) {
-            player1.py += step;
-        }
-        
-        player1.setLocation(player1.px, player1.py);
+        player.repaint();
     }
 
-    @Override public void keyReleased(KeyEvent e) {}
+    @Override public void keyPressed(KeyEvent e) { keys.add(e.getKeyCode()); }
+    @Override public void keyReleased(KeyEvent e) { keys.remove(e.getKeyCode()); }
     @Override public void keyTyped(KeyEvent e) {}
-
 }
