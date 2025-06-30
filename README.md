@@ -14,4 +14,5 @@ Inspired by early 3D games like *Wolfenstein 3D*, this project demonstrates how 
 
 ### Prerequisites
 - Java 21 or higher
+  
 #################################################################################################
