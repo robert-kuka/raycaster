@@ -16,7 +16,6 @@ public class Player extends JPanel {
     public Player() {
         setOpaque(false);
         setFocusable(true);
-        setBackground(Color.GRAY);
     }
 
     public void moveForward() {
@@ -159,13 +158,13 @@ public void drawRays(Graphics g, Map gameMap, double centerX, double centerY){
             rx = vx; 
             ry = vy;
             disT = disV;
-            g.setColor(new Color(200,0,0));
+            g.setColor(new Color(200,0,0)); // Vertical color
         }
         else {
             rx = hx; 
             ry = hy;
             disT = disH;
-            g.setColor(new Color(255,0,0));
+            g.setColor(new Color(255,0,0)); // Horizontal color
         }
         
         // Draw the ray
@@ -173,6 +172,7 @@ public void drawRays(Graphics g, Map gameMap, double centerX, double centerY){
         g2d.setStroke(new BasicStroke(2));
         g2d.drawLine((int)centerX, (int)centerY, (int)rx, (int)ry);
 
+        // Draw the walls
         double ca = (pa - ra);
         if (ca < 0) ca += 360;
         if (ca > 360) ca -= 360;

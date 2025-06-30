@@ -14,8 +14,8 @@ public class Frame extends JFrame implements KeyListener{
     private Set<Integer> keys = new HashSet<>();
 
     Frame(){
-        setTitle("ray casting");                        // Title of the window
-        setVisible(true); 
+        setTitle("ray casting");                        // Title of the window                                 
+        setVisible(true);                               // Window visible
         
         pack();
         Insets insets = getInsets();
@@ -27,7 +27,7 @@ public class Frame extends JFrame implements KeyListener{
         setLocationRelativeTo(null);                    // Centere frame
         setLayout(null);                                // Allows manual positioning
 
-        player = new Player();                          // Initialise character  
+        player = new Player();                          
         player.setBounds(0, 0, WIDTH + insets.left + insets.right
                              , HEIGHT+ insets.top + insets.bottom);
         add(player);
@@ -40,7 +40,6 @@ public class Frame extends JFrame implements KeyListener{
         addKeyListener(this);                           // Add keylistener to the frame
         setFocusable(true);                             // Makes frame interactable
 
-                                      // Status visible
 
         new Timer(16, e -> updateMovement()).start();
     }   

@@ -6,6 +6,7 @@ public class Map extends JPanel {
     private int mapY = 8;
     private int mapS = 64;
     
+    // Map layout
     public int map[] = {
         1,1,1,1,1,1,1,1,
         1,0,1,0,0,0,0,1,
@@ -20,6 +21,7 @@ public class Map extends JPanel {
     public Map() {
     }
     
+    // Draw grid
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
