@@ -8,36 +8,39 @@ import javax.swing.*;
 
 public class Frame extends JFrame implements KeyListener{
 
-    Insets insets = getInsets();
-    private int WIDTH = 1024 + insets.left + insets.right;
-    private int HEIGHT = 512 + insets.top + insets.bottom;
+    private int WIDTH = 1024-40;
+    private int HEIGHT = 512;
     private Player player;
     private Set<Integer> keys = new HashSet<>();
 
     Frame(){
         setTitle("ray casting");                        // Title of the window
-
-        pack();
-        setSize(WIDTH ,HEIGHT);
-
+        setVisible(true); 
         
-        getContentPane().setBackground(Color.GRAY);     // Background color of the window    
+        pack();
+        Insets insets = getInsets();
+        setSize(WIDTH + insets.left + insets.right,
+                HEIGHT + insets.top + insets.bottom);
+        
+        getContentPane().setBackground(Color.BLUE);     // Background color of the window    
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Exit app on close
         setLocationRelativeTo(null);                    // Centere frame
         setLayout(null);                                // Allows manual positioning
 
-        player = new Player();                         // Initialise character  
-        player.setBounds(0, 0, WIDTH, HEIGHT);
+        player = new Player();                          // Initialise character  
+        player.setBounds(0, 0, WIDTH + insets.left + insets.right
+                             , HEIGHT+ insets.top + insets.bottom);
         add(player);
 
         Map map = new Map();
-        map.setBounds(0, 0, 8 * 64, 8 * 64);
+        map.setBounds(0, 0, WIDTH + insets.left + insets.right
+                          , HEIGHT+ insets.top + insets.bottom);
         add(map);
 
         addKeyListener(this);                           // Add keylistener to the frame
         setFocusable(true);                             // Makes frame interactable
 
-        setVisible(true);                               // Status visible
+                                      // Status visible
 
         new Timer(16, e -> updateMovement()).start();
     }   
