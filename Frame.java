@@ -8,8 +8,9 @@ import javax.swing.*;
 
 public class Frame extends JFrame implements KeyListener{
 
-    private int WIDTH = 1024;
-    private int HEIGHT = 512;
+    Insets insets = getInsets();
+    private int WIDTH = 1024 + insets.left + insets.right;
+    private int HEIGHT = 512 + insets.top + insets.bottom;
     private Player player;
     private Set<Integer> keys = new HashSet<>();
 
@@ -17,9 +18,7 @@ public class Frame extends JFrame implements KeyListener{
         setTitle("ray casting");                        // Title of the window
 
         pack();
-        Insets insets = getInsets();
-        setSize(WIDTH + insets.left + insets.right, 
-               HEIGHT + insets.top + insets.bottom);
+        setSize(WIDTH ,HEIGHT);
 
         
         getContentPane().setBackground(Color.GRAY);     // Background color of the window    
@@ -28,7 +27,7 @@ public class Frame extends JFrame implements KeyListener{
         setLayout(null);                                // Allows manual positioning
 
         player = new Player();                         // Initialise character  
-        player.setBounds(0, 0, 8 * 64, 8 * 64);
+        player.setBounds(0, 0, WIDTH, HEIGHT);
         add(player);
 
         Map map = new Map();

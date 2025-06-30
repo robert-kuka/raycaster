@@ -9,7 +9,7 @@ public class Player extends JPanel {
 
     public final int LENGTH = 8;
     private final double MOVE_SPEED = 1.5;
-    private final int TURN_SPEED = 3;
+    private final int TURN_SPEED = 1;
 
     Map gameMap = new Map();
 
@@ -44,14 +44,18 @@ public class Player extends JPanel {
 
 public void drawRays(Graphics g, Map gameMap, double centerX, double centerY){
     int r, mx, my, mp, dof;
-    double ra, rx = 0, ry = 0, xo = 0, yo = 0;
+    double ra, disT, rx = 0, ry = 0, xo = 0, yo = 0;
     int mapX = 8;
     int mapY = 8;
     int[] map = gameMap.map;
     
-    ra = pa; // Start with player angle
+    int numRays = 60; 
+    int screenWidth = 1024; 
+    int screenHeight = 512;
     
-    for(r = 0; r < 1; r++) {
+    ra = pa - 30; if (ra < 0) ra += 360; if (ra >= 360) ra -= 360;
+
+    for(r = 0; r < 60; r++) {
         
         //---- Check Horizontal Lines ----
         double disH = 100000, hx = centerX, hy = centerY;
@@ -153,10 +157,12 @@ public void drawRays(Graphics g, Map gameMap, double centerX, double centerY){
         if (disV < disH) {
             rx = vx; 
             ry = vy;
+            disT = disV;
         }
         else {
             rx = hx; 
             ry = hy;
+            disT = disH;
         }
         
         // Draw the ray
@@ -164,8 +170,36 @@ public void drawRays(Graphics g, Map gameMap, double centerX, double centerY){
         Graphics2D g2d = (Graphics2D) g;
         g2d.setStroke(new BasicStroke(2));
         g2d.drawLine((int)centerX, (int)centerY, (int)rx, (int)ry);
+
+        
+        /// Fix fisheye distortion
+        double ca = (pa - ra);
+        if (ca < 0) ca += 360;
+        if (ca > 2 * Math.PI) ca -= 360;
+        disT = disT * Math.cos(Math.toRadians(ca));
+
+        // Wall height based on distance
+        double lineH = (64.0 * 320) / disT; // 64 = mapS
+        if (lineH > 320) lineH = 320;
+
+        // Offset to center the wall vertically
+        double lineO = (160 - lineH / 2.0);
+
+        // X position of this ray's wall slice on screen
+        int columnWidth = screenWidth / numRays;
+        int columnX = screenHeight + r * columnWidth;
+
+
+        g.setColor(Color.red);
+
+        // Draw the vertical slice
+        g.fillRect(columnX, (int)lineO, columnWidth, (int)lineH);
+        
+
+
+        ra+=1; if (ra < 0) ra += 360; if (ra >= 360) ra -= 360;
+        }
     }
-}
 
     @Override
     protected void paintComponent(Graphics g) {
