@@ -2,11 +2,11 @@ import java.awt.*;
 import javax.swing.JPanel;
 
 public class Map extends JPanel {
-    int mapX = 8;
-    int mapY = 8;
-    int mapS = 64;
+    private int mapX = 8;
+    private int mapY = 8;
+    private int mapS = 64;
     
-    int map[] = {
+    public int map[] = {
         1,1,1,1,1,1,1,1,
         1,0,1,0,0,0,0,1,
         1,0,1,0,0,0,0,1,
@@ -24,7 +24,6 @@ public class Map extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        // All drawing happens here
         for(int y = 0; y < mapY; y++) {
             for(int x = 0; x < mapX; x++) {
                 Color color;
