@@ -12,6 +12,10 @@ Inspired by early 3D games like *Wolfenstein 3D*, this project demonstrates how 
 - Simple Swing-based rendering
 - Adjustable field of view , enviroment and resolution
 
+### Controls 
+-wasd (forwards, left, down, right)
+-ad   (turn anticlockwise, turn clockwise)
+
 ### Prerequisites
 - Java 21 or higher
   
