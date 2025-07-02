@@ -1,11 +1,11 @@
-#################################################################################################
-# RayCaster
-
+### RayCaster
 A simple ray casting engine written entirely in Java using the Swing library for graphics.
 Inspired by early 3D games like *Wolfenstein 3D*, this project demonstrates how 3D perspective can be simulated from a 2D grid map using ray casting.
 
-## Features
+### Screenshot
+![Raycaster running](https://github.com/robert-kuka/raycaster/blob/main/media/screenshot.png?raw=true)
 
+### Features
 - 2D grid-based world representation
 - Ray casting to detect wall collisions
 - Real-time 3D projection of walls based on ray hits
@@ -18,5 +18,7 @@ Inspired by early 3D games like *Wolfenstein 3D*, this project demonstrates how 
 
 ### Prerequisites
 - Java 21 or higher
-  
-#################################################################################################
+
+### How to Run
+- install .jar file
+- doule click .jar file with the prerequiste java version already installed 
